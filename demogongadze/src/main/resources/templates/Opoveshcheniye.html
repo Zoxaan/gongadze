@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>opoves</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<ul class="nav nav-tabs ">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="http://localhost:9831/api/users/all">Админ панель</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="http://localhost:9831/api/opoves/all">opovos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Ссылка</a>
+    </li>
+</ul>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">text</th>
+        <th scope="col">user</th>
+        <th scope="col">Action</th>
+        <th></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="opoves: ${opovesh}"></td>
+        <td th:text="${opoves.id}"></td>
+        <td th:text="${opoves.text}"></td>
+        <td th:text="${opoves.users.login}"></td>
+        <td th:href="@{/api/opoves/edit(id=${opoves.id})}">
+            <a th:href="@{/api/opoves/edit(id=${opoves.id})}">edit</a>
+            <a th:href="@{/api/opoves/delete(id=${opoves.id})}">delete</a>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+<div class="row  w-25 mx-auto">
+    <form th:action="@{/api/opoves/save}" th:object="${opoves}" method="post">
+        <label>text</label>
+        <input class="form-control " type="text"  th:field="*{text}">
+        <label>user id</label>
+        <input class="form-control "type="text" th:field="*{users.id}">
+        <button  type="submit" class="btn btn-primary d-grid gap-2 col-6 mx-auto mt-3">добавить</button>
+    </form>
+</div>
+</body>
+</html>
